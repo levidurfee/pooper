@@ -1,0 +1,11 @@
+.twelve {text-align:center;margin-top:50px;}
+button {color: #fff;
+    background-color: #286090;
+    border-color: #204d74;}
+button:disabled {    box-shadow: none;
+    opacity: .65;
+      cursor: not-allowed;}
+
+#gotta_poop button:hover {color:#f5f5f5;}
+
+

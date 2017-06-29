@@ -25,19 +25,46 @@ var poop = function () {
     }, {
         key: 'listen',
         value: function listen() {
+            var _this = this;
+
             var toilet = firebase.database().ref('shitter/available');
             var shit = document.getElementById('shit');
             var wipe = document.getElementById('wipe');
             toilet.on('value', function (s) {
-                console.log(s.val());
                 if (s.val() === false) {
                     wipe.disabled = false;
                     shit.disabled = true;
+                    _this.close();
                 } else {
+                    _this.open();
                     wipe.disabled = true;
                     shit.disabled = false;
                 }
             });
+        }
+    }, {
+        key: 'open',
+        value: function open() {
+            this.clear();
+            var status = document.getElementById('status');
+            var image = document.createElement('img');
+            image.src = '/open.gif';
+            status.appendChild(image);
+        }
+    }, {
+        key: 'close',
+        value: function close() {
+            this.clear();
+            var image = document.createElement('img');
+            image.src = '/closed.jpg';
+            this.status.appendChild(image);
+        }
+    }, {
+        key: 'clear',
+        value: function clear() {
+            var status = document.getElementById('status');
+            status.innerHTML = '';
+            this.status = status;
         }
     }]);
 
@@ -62,8 +89,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         shit.onclick = function () {
 
             db.ref('poopers/' + uid).push({
-                available: false,
-                'timestamp': Date.now()
+                'available': false,
+                'timestamp': Date.now(),
+                'user': user.email
             }).then(function () {
                 firebase.database().ref('shitter/').set({ available: false });
             });
@@ -73,8 +101,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         wipe.onclick = function () {
 
             db.ref('poopers/' + uid).push({
-                available: true,
-                'timestamp': Date.now()
+                'available': true,
+                'timestamp': Date.now(),
+                'user': user.email
             }).then(function () {
                 firebase.database().ref('shitter/').set({ available: true });
             });

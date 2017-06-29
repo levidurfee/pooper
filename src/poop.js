@@ -18,15 +18,37 @@ class poop {
         let shit = document.getElementById('shit');
         let wipe = document.getElementById('wipe');
         toilet.on('value', (s) => {
-            console.log(s.val());
             if(s.val() === false) {
                 wipe.disabled = false;
                 shit.disabled = true;
+                this.close();
             } else {
+                this.open();
                 wipe.disabled = true;
                 shit.disabled = false;
             }
         });
+    }
+
+    open() {
+        this.clear();
+        let status = document.getElementById('status');
+        let image = document.createElement('img');
+        image.src = '/open.gif';
+        status.appendChild(image);
+    }
+
+    close() {
+        this.clear();
+        let image = document.createElement('img');
+        image.src = '/closed.jpg';
+        this.status.appendChild(image);
+    }
+
+    clear() {
+        let status = document.getElementById('status');
+        status.innerHTML = '';
+        this.status = status;
     }
 }
 
@@ -48,8 +70,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     shit.onclick = () => {
 
         db.ref('poopers/' + uid).push({
-            available: false,
-            'timestamp': Date.now()
+            'available': false,
+            'timestamp': Date.now(),
+            'user': user.email
         }).then( () => {
             firebase.database().ref('shitter/').set({available: false});
         });
@@ -60,8 +83,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     wipe.onclick = () => {
 
         db.ref('poopers/' + uid).push({
-            available: true,
-            'timestamp': Date.now()
+            'available': true,
+            'timestamp': Date.now(),
+            'user': user.email
         }).then( () => {
             firebase.database().ref('shitter/').set({available: true});
         });
