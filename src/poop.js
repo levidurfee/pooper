@@ -14,7 +14,7 @@ class poop {
     }
 
     listen() {
-        let toilet = firebase.database().ref('available');
+        let toilet = firebase.database().ref('shitter/available');
         let shit = document.getElementById('shit');
         let wipe = document.getElementById('wipe');
         toilet.on('value', (s) => {
@@ -47,11 +47,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     let db = firebase.database();
     shit.onclick = () => {
 
-        db.ref('poopers').push({
+        db.ref('poopers/' + uid).push({
             available: false,
             'timestamp': Date.now()
         }).then( () => {
-            firebase.database().ref('/').set({available: false});
+            firebase.database().ref('shitter/').set({available: false});
         });
 
     };
@@ -59,11 +59,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     let wipe = document.getElementById('wipe');
     wipe.onclick = () => {
 
-        db.ref('poopers').push({
+        db.ref('poopers/' + uid).push({
             available: true,
             'timestamp': Date.now()
         }).then( () => {
-            firebase.database().ref('/').set({available: true});
+            firebase.database().ref('shitter/').set({available: true});
         });
 
     };

@@ -25,7 +25,7 @@ var poop = function () {
     }, {
         key: 'listen',
         value: function listen() {
-            var toilet = firebase.database().ref('available');
+            var toilet = firebase.database().ref('shitter/available');
             var shit = document.getElementById('shit');
             var wipe = document.getElementById('wipe');
             toilet.on('value', function (s) {
@@ -61,22 +61,22 @@ firebase.auth().onAuthStateChanged(function (user) {
         var db = firebase.database();
         shit.onclick = function () {
 
-            db.ref('poopers').push({
+            db.ref('poopers/' + uid).push({
                 available: false,
                 'timestamp': Date.now()
             }).then(function () {
-                firebase.database().ref('/').set({ available: false });
+                firebase.database().ref('shitter/').set({ available: false });
             });
         };
 
         var wipe = document.getElementById('wipe');
         wipe.onclick = function () {
 
-            db.ref('poopers').push({
+            db.ref('poopers/' + uid).push({
                 available: true,
                 'timestamp': Date.now()
             }).then(function () {
-                firebase.database().ref('/').set({ available: true });
+                firebase.database().ref('shitter/').set({ available: true });
             });
         };
     }
