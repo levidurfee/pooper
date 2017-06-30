@@ -11,4 +11,5 @@ button:disabled {    box-shadow: none;
 .head .row {width:80%; margin:0 auto;font-size:20px;line-height:50px;}
 .main {text-align:center;padding:10px;}
 .pooop {margin-top:15px;}
+img {max-width:100%;}
 
