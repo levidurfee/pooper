@@ -13,3 +13,7 @@ button:disabled {    box-shadow: none;
 .pooop {margin-top:15px;}
 img {max-width:100%;}
 
+@media (max-width:550px) {
+  input {width:100%;}
+}
+
