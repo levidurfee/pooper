@@ -27,18 +27,23 @@ var poop = function () {
         value: function listen() {
             var _this = this;
 
-            var toilet = firebase.database().ref('shitter/available');
+            var self = this;
+            var toilet = firebase.database().ref('shitter/');
             var shit = document.getElementById('shit');
             var wipe = document.getElementById('wipe');
+            var text = document.getElementById('text');
+            var poop = document.getElementById('pooper');
             toilet.on('value', function (s) {
-                if (s.val() === false) {
+                text.innerHTML = s.val().text;
+                poop.innerHTML = s.val().pooper;
+                if (s.val().available === false) {
                     wipe.disabled = false;
                     shit.disabled = true;
                     _this.close();
                 } else {
-                    _this.open();
                     wipe.disabled = true;
                     shit.disabled = false;
+                    _this.open();
                 }
             });
         }
@@ -93,7 +98,11 @@ firebase.auth().onAuthStateChanged(function (user) {
                 'timestamp': Date.now(),
                 'user': user.email
             }).then(function () {
-                firebase.database().ref('shitter/').set({ available: false });
+                firebase.database().ref('shitter/').set({
+                    available: false,
+                    pooper: user.email,
+                    text: 'current pooper'
+                });
             });
         };
 
@@ -105,7 +114,11 @@ firebase.auth().onAuthStateChanged(function (user) {
                 'timestamp': Date.now(),
                 'user': user.email
             }).then(function () {
-                firebase.database().ref('shitter/').set({ available: true });
+                firebase.database().ref('shitter/').set({
+                    available: true,
+                    pooper: user.email,
+                    text: 'previous pooooper'
+                });
             });
         };
     }

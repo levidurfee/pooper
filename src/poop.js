@@ -14,18 +14,23 @@ class poop {
     }
 
     listen() {
-        let toilet = firebase.database().ref('shitter/available');
+        let self = this;
+        let toilet = firebase.database().ref('shitter/');
         let shit = document.getElementById('shit');
         let wipe = document.getElementById('wipe');
+        let text = document.getElementById('text');
+        let poop = document.getElementById('pooper');
         toilet.on('value', (s) => {
-            if(s.val() === false) {
+            text.innerHTML = s.val().text;
+            poop.innerHTML = s.val().pooper;
+            if(s.val().available === false) {
                 wipe.disabled = false;
                 shit.disabled = true;
                 this.close();
             } else {
-                this.open();
                 wipe.disabled = true;
                 shit.disabled = false;
+                this.open();
             }
         });
     }
@@ -74,7 +79,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             'timestamp': Date.now(),
             'user': user.email
         }).then( () => {
-            firebase.database().ref('shitter/').set({available: false});
+            firebase.database().ref('shitter/').set({
+                available: false,
+                pooper: user.email,
+                text: 'current pooper'
+            });
         });
 
     };
@@ -87,7 +96,11 @@ firebase.auth().onAuthStateChanged(function(user) {
             'timestamp': Date.now(),
             'user': user.email
         }).then( () => {
-            firebase.database().ref('shitter/').set({available: true});
+            firebase.database().ref('shitter/').set({
+                available: true,
+                pooper: user.email,
+                text: 'previous pooooper'
+            });
         });
 
     };
