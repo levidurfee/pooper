@@ -97,13 +97,13 @@ class poop {
         this.status = status;
     }
 
-    main() {
+    main(loginFormElId, gottaPoopElId, shitElId) {
         firebase.auth().onAuthStateChanged(function(user) {
             // if user logs in
             if (user) {
-                let l = document.getElementById('login__form');
-                let gp = document.getElementById('gotta_poop');
-                let shit = document.getElementById('shit');
+                let l = document.getElementById(loginFormElId);
+                let gp = document.getElementById(gottaPoopElId);
+                let shit = document.getElementById(shitElId);
                 let uid = firebase.auth().currentUser.uid;
                 let db = firebase.database();
 
@@ -146,8 +146,8 @@ class poop {
         });
     }
 
-    static run() {
-        return new poop().login().listen().main();
+    static run(loginFormElId = 'login__form', gottaPoopElId = 'gotta_poop', shitElId = 'shit') {
+        return new poop().login().listen().main(loginFormElId, gottaPoopElId, shitElId);
     }
 }
 

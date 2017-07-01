@@ -135,13 +135,13 @@ var poop = function () {
         }
     }, {
         key: 'main',
-        value: function main() {
+        value: function main(loginFormElId, gottaPoopElId, shitElId) {
             firebase.auth().onAuthStateChanged(function (user) {
                 // if user logs in
                 if (user) {
-                    var l = document.getElementById('login__form');
-                    var gp = document.getElementById('gotta_poop');
-                    var shit = document.getElementById('shit');
+                    var l = document.getElementById(loginFormElId);
+                    var gp = document.getElementById(gottaPoopElId);
+                    var shit = document.getElementById(shitElId);
                     var uid = firebase.auth().currentUser.uid;
                     var db = firebase.database();
 
@@ -184,7 +184,11 @@ var poop = function () {
     }], [{
         key: 'run',
         value: function run() {
-            return new poop().login().listen().main();
+            var loginFormElId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'login__form';
+            var gottaPoopElId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'gotta_poop';
+            var shitElId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'shit';
+
+            return new poop().login().listen().main(loginFormElId, gottaPoopElId, shitElId);
         }
     }]);
 
