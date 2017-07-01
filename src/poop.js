@@ -1,13 +1,17 @@
 class poop {
     /**
-     * login event listener
+     * Listen for a user logging in.
+     *
+     * @param {string} loginElId    ID of login button
+     * @param {string} emailElId    ID of email input
+     * @param {string} passwordElId ID of password input
      */
-    login() {
-        let loginBtn = document.getElementById('login');
+    login(loginElId = 'login', emailElId = 'email', passwordElId = 'password') {
+        let loginBtn = document.getElementById(loginElId);
 
         loginBtn.onclick = () => {
-            let email = document.getElementById('email').value;
-            let password = document.getElementById('password').value;
+            let email = document.getElementById(emailElId).value;
+            let password = document.getElementById(passwordElId).value;
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .catch((error) => {
                 console.error(error.message);
@@ -82,7 +86,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     let shit = document.getElementById('shit');
     let uid = firebase.auth().currentUser.uid;
     let db = firebase.database();
-    
+
     l.style.display = 'none';
     gp.style.display = 'block';
 
