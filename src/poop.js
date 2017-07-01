@@ -25,6 +25,8 @@ class poop {
                 console.error(error.message);
             });
         };
+
+        return this;
     }
 
     /**
@@ -62,6 +64,8 @@ class poop {
                 this.open();                    // change image
             }
         });
+
+        return this;
     }
 
     /**
@@ -93,56 +97,59 @@ class poop {
         this.status = status;
     }
 
+    main() {
+        firebase.auth().onAuthStateChanged(function(user) {
+            // if user logs in
+            if (user) {
+                let l = document.getElementById('login__form');
+                let gp = document.getElementById('gotta_poop');
+                let shit = document.getElementById('shit');
+                let uid = firebase.auth().currentUser.uid;
+                let db = firebase.database();
+
+                l.style.display = 'none';
+                gp.style.display = 'block';
+
+                shit.onclick = () => {
+
+                    db.ref('poopers/' + uid).push({
+                        'available': false,
+                        'timestamp': Date.now(),
+                        'user': user.email
+                    }).then( () => {
+                        firebase.database().ref('shitter/').set({
+                            'available': false,
+                            'pooper': user.email,
+                            'text': 'current pooper'
+                        });
+                    });
+
+                };
+
+                let wipe = document.getElementById('wipe');
+                wipe.onclick = () => {
+
+                    db.ref('poopers/' + uid).push({
+                        'available': true,
+                        'timestamp': Date.now(),
+                        'user': user.email
+                    }).then( () => {
+                        firebase.database().ref('shitter/').set({
+                            'available': true,
+                            'pooper': user.email,
+                            'text': 'previous pooooper'
+                        });
+                    });
+
+                };
+            }
+        });
+    }
+
+    static run() {
+        return new poop().login().listen().main();
+    }
 }
 
-let p = new poop();
-p.login();
-p.listen();
-
-firebase.auth().onAuthStateChanged(function(user) {
-  // if user logs in
-  if (user) {
-    let l = document.getElementById('login__form');
-    let gp = document.getElementById('gotta_poop');
-    let shit = document.getElementById('shit');
-    let uid = firebase.auth().currentUser.uid;
-    let db = firebase.database();
-
-    l.style.display = 'none';
-    gp.style.display = 'block';
-
-    shit.onclick = () => {
-
-        db.ref('poopers/' + uid).push({
-            'available': false,
-            'timestamp': Date.now(),
-            'user': user.email
-        }).then( () => {
-            firebase.database().ref('shitter/').set({
-                'available': false,
-                'pooper': user.email,
-                'text': 'current pooper'
-            });
-        });
-
-    };
-
-    let wipe = document.getElementById('wipe');
-    wipe.onclick = () => {
-
-        db.ref('poopers/' + uid).push({
-            'available': true,
-            'timestamp': Date.now(),
-            'user': user.email
-        }).then( () => {
-            firebase.database().ref('shitter/').set({
-                'available': true,
-                'pooper': user.email,
-                'text': 'previous pooooper'
-            });
-        });
-
-    };
-  }
-});
+let p = poop.run();
 

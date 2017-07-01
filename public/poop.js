@@ -42,6 +42,8 @@ var poop = function () {
                     console.error(error.message);
                 });
             };
+
+            return this;
         }
 
         /**
@@ -90,6 +92,8 @@ var poop = function () {
                     _this.open(); // change image
                 }
             });
+
+            return this;
         }
 
         /**
@@ -129,56 +133,62 @@ var poop = function () {
             status.innerHTML = '';
             this.status = status;
         }
+    }, {
+        key: 'main',
+        value: function main() {
+            firebase.auth().onAuthStateChanged(function (user) {
+                // if user logs in
+                if (user) {
+                    var l = document.getElementById('login__form');
+                    var gp = document.getElementById('gotta_poop');
+                    var shit = document.getElementById('shit');
+                    var uid = firebase.auth().currentUser.uid;
+                    var db = firebase.database();
+
+                    l.style.display = 'none';
+                    gp.style.display = 'block';
+
+                    shit.onclick = function () {
+
+                        db.ref('poopers/' + uid).push({
+                            'available': false,
+                            'timestamp': Date.now(),
+                            'user': user.email
+                        }).then(function () {
+                            firebase.database().ref('shitter/').set({
+                                'available': false,
+                                'pooper': user.email,
+                                'text': 'current pooper'
+                            });
+                        });
+                    };
+
+                    var wipe = document.getElementById('wipe');
+                    wipe.onclick = function () {
+
+                        db.ref('poopers/' + uid).push({
+                            'available': true,
+                            'timestamp': Date.now(),
+                            'user': user.email
+                        }).then(function () {
+                            firebase.database().ref('shitter/').set({
+                                'available': true,
+                                'pooper': user.email,
+                                'text': 'previous pooooper'
+                            });
+                        });
+                    };
+                }
+            });
+        }
+    }], [{
+        key: 'run',
+        value: function run() {
+            return new poop().login().listen().main();
+        }
     }]);
 
     return poop;
 }();
 
-var p = new poop();
-p.login();
-p.listen();
-
-firebase.auth().onAuthStateChanged(function (user) {
-    // if user logs in
-    if (user) {
-        var l = document.getElementById('login__form');
-        var gp = document.getElementById('gotta_poop');
-        var shit = document.getElementById('shit');
-        var uid = firebase.auth().currentUser.uid;
-        var db = firebase.database();
-
-        l.style.display = 'none';
-        gp.style.display = 'block';
-
-        shit.onclick = function () {
-
-            db.ref('poopers/' + uid).push({
-                'available': false,
-                'timestamp': Date.now(),
-                'user': user.email
-            }).then(function () {
-                firebase.database().ref('shitter/').set({
-                    'available': false,
-                    'pooper': user.email,
-                    'text': 'current pooper'
-                });
-            });
-        };
-
-        var wipe = document.getElementById('wipe');
-        wipe.onclick = function () {
-
-            db.ref('poopers/' + uid).push({
-                'available': true,
-                'timestamp': Date.now(),
-                'user': user.email
-            }).then(function () {
-                firebase.database().ref('shitter/').set({
-                    'available': true,
-                    'pooper': user.email,
-                    'text': 'previous pooooper'
-                });
-            });
-        };
-    }
-});
+var p = poop.run();
