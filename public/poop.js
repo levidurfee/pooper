@@ -6,21 +6,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var poop = function () {
     function poop() {
+        var statusElId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'status';
+
         _classCallCheck(this, poop);
+
+        this.statusElId = statusElId;
     }
+
+    /**
+     * Listen for a user logging in.
+     *
+     * @param {string} loginElId    ID of login button
+     * @param {string} emailElId    ID of email input
+     * @param {string} passwordElId ID of password input
+     */
+
 
     _createClass(poop, [{
         key: 'login',
-
-        /**
-         * login event listener
-         */
         value: function login() {
-            var loginBtn = document.getElementById('login');
+            var loginElId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'login';
+            var emailElId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'email';
+            var passwordElId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'password';
 
+            var loginBtn = document.getElementById(loginElId);
+
+            // listen for someone to click the login button
             loginBtn.onclick = function () {
-                var email = document.getElementById('email').value;
-                var password = document.getElementById('password').value;
+                // get some elements
+                var email = document.getElementById(emailElId).value;
+                var password = document.getElementById(passwordElId).value;
+
+                // try and login via firebase
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
                     console.error(error.message);
                 });
@@ -29,30 +46,48 @@ var poop = function () {
 
         /**
          * listen for changes to the database then update the page
+         *
+         * @param {string} shitElId     ID of button for going to poop
+         * @param {string} wipeElId     ID of button when doing pooping
+         * @param {string} textElId     ID of span for status text
+         * @param {string} pooperElId   ID of span for person pooper
          */
 
     }, {
         key: 'listen',
         value: function listen() {
+            var shitElId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'shit';
+            var wipeElId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'wipe';
+
             var _this = this;
 
-            var self = this;
+            var textElId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'text';
+            var pooperElId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'pooper';
+
+            // get a reference to the database location.
             var toilet = firebase.database().ref('shitter/');
-            var shit = document.getElementById('shit');
-            var wipe = document.getElementById('wipe');
-            var text = document.getElementById('text');
-            var poop = document.getElementById('pooper');
+
+            // select some elements
+            var shit = document.getElementById(shitElId);
+            var wipe = document.getElementById(wipeElId);
+            var text = document.getElementById(textElId);
+            var poop = document.getElementById(pooperElId);
+
+            // wait and listen to see if there is a new value added
             toilet.on('value', function (s) {
-                text.innerHTML = s.val().text;
-                poop.innerHTML = s.val().pooper;
+                text.innerHTML = s.val().text; // update status text
+                poop.innerHTML = s.val().pooper; // update latest pooper
+
                 if (s.val().available === false) {
-                    wipe.disabled = false;
-                    shit.disabled = true;
-                    _this.close();
+                    // if toilet isn't available
+                    wipe.disabled = false; // enable wipe button
+                    shit.disabled = true; // disable poop button
+                    _this.close(); // change image
                 } else {
-                    wipe.disabled = true;
-                    shit.disabled = false;
-                    _this.open();
+                    // if toilet is available
+                    wipe.disabled = true; // disable wipe button
+                    shit.disabled = false; // enable poop button
+                    _this.open(); // change image
                 }
             });
         }
@@ -90,7 +125,7 @@ var poop = function () {
     }, {
         key: 'clear',
         value: function clear() {
-            var status = document.getElementById('status');
+            var status = document.getElementById(this.statusElId);
             status.innerHTML = '';
             this.status = status;
         }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ['poop', 'bathroom', 'work'],
+  "keywords": [],
   "author": "Levi Durfee <levi.durfee@gmail.com>",
   "license": "ISC",
   "devDependencies": {
