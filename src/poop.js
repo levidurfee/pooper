@@ -1,5 +1,7 @@
-
 class poop {
+    /**
+     * login event listener
+     */
     login() {
         let loginBtn = document.getElementById('login');
 
@@ -13,6 +15,9 @@ class poop {
         };
     }
 
+    /**
+     * listen for changes to the database then update the page
+     */
     listen() {
         let self = this;
         let toilet = firebase.database().ref('shitter/');
@@ -35,14 +40,19 @@ class poop {
         });
     }
 
+    /**
+     * show the opened image
+     */
     open() {
         this.clear();
-        let status = document.getElementById('status');
         let image = document.createElement('img');
         image.src = '/open.gif';
-        status.appendChild(image);
+        this.status.appendChild(image);
     }
 
+    /**
+     * Show the closed image
+     */
     close() {
         this.clear();
         let image = document.createElement('img');
@@ -50,6 +60,9 @@ class poop {
         this.status.appendChild(image);
     }
 
+    /**
+     * empty out the #status div
+     */
     clear() {
         let status = document.getElementById('status');
         status.innerHTML = '';
