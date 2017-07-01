@@ -21,14 +21,18 @@ class poop {
 
     /**
      * listen for changes to the database then update the page
+     *
+     * @param {string} shitElId     ID of button for going to poop
+     * @param {string} wipeElId     ID of button when doing pooping
+     * @param {string} textElId     ID of span for status text
+     * @param {string} pooperElId   ID of span for person pooper
      */
-    listen() {
-        let self = this;
+    listen(shitElId = 'shit', wipeElId = 'wipe', textElId = 'text', pooperElId = 'pooper') {
         let toilet = firebase.database().ref('shitter/');
-        let shit = document.getElementById('shit');
-        let wipe = document.getElementById('wipe');
-        let text = document.getElementById('text');
-        let poop = document.getElementById('pooper');
+        let shit = document.getElementById(shitElId);
+        let wipe = document.getElementById(wipeElId);
+        let text = document.getElementById(textElId);
+        let poop = document.getElementById(pooperElId);
         toilet.on('value', (s) => {
             text.innerHTML = s.val().text;
             poop.innerHTML = s.val().pooper;
