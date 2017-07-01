@@ -151,5 +151,3 @@ class poop {
     }
 }
 
-let p = poop.run();
-

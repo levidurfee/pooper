@@ -190,5 +190,3 @@ var poop = function () {
 
     return poop;
 }();
-
-var p = poop.run();
