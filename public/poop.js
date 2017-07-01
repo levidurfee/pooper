@@ -11,6 +11,10 @@ var poop = function () {
 
     _createClass(poop, [{
         key: 'login',
+
+        /**
+         * login event listener
+         */
         value: function login() {
             var loginBtn = document.getElementById('login');
 
@@ -22,6 +26,11 @@ var poop = function () {
                 });
             };
         }
+
+        /**
+         * listen for changes to the database then update the page
+         */
+
     }, {
         key: 'listen',
         value: function listen() {
@@ -47,15 +56,24 @@ var poop = function () {
                 }
             });
         }
+
+        /**
+         * show the opened image
+         */
+
     }, {
         key: 'open',
         value: function open() {
             this.clear();
-            var status = document.getElementById('status');
             var image = document.createElement('img');
             image.src = '/open.gif';
-            status.appendChild(image);
+            this.status.appendChild(image);
         }
+
+        /**
+         * Show the closed image
+         */
+
     }, {
         key: 'close',
         value: function close() {
@@ -64,6 +82,11 @@ var poop = function () {
             image.src = '/closed.jpg';
             this.status.appendChild(image);
         }
+
+        /**
+         * empty out the #status div
+         */
+
     }, {
         key: 'clear',
         value: function clear() {
@@ -81,16 +104,17 @@ p.login();
 p.listen();
 
 firebase.auth().onAuthStateChanged(function (user) {
+    // if user logs in
     if (user) {
         var l = document.getElementById('login__form');
-        l.style.display = 'none';
         var gp = document.getElementById('gotta_poop');
-        gp.style.display = 'block';
         var shit = document.getElementById('shit');
-
         var uid = firebase.auth().currentUser.uid;
-
         var db = firebase.database();
+
+        l.style.display = 'none';
+        gp.style.display = 'block';
+
         shit.onclick = function () {
 
             db.ref('poopers/' + uid).push({
@@ -99,9 +123,9 @@ firebase.auth().onAuthStateChanged(function (user) {
                 'user': user.email
             }).then(function () {
                 firebase.database().ref('shitter/').set({
-                    available: false,
-                    pooper: user.email,
-                    text: 'current pooper'
+                    'available': false,
+                    'pooper': user.email,
+                    'text': 'current pooper'
                 });
             });
         };
@@ -115,9 +139,9 @@ firebase.auth().onAuthStateChanged(function (user) {
                 'user': user.email
             }).then(function () {
                 firebase.database().ref('shitter/').set({
-                    available: true,
-                    pooper: user.email,
-                    text: 'previous pooooper'
+                    'available': true,
+                    'pooper': user.email,
+                    'text': 'previous pooooper'
                 });
             });
         };
