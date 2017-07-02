@@ -104,7 +104,7 @@ var poop = function () {
     value: function open() {
       this.clear();
       var image = document.createElement('img');
-      image.src = '/open.gif';
+      image.src = '/assets/images/open.gif';
       this.status.appendChild(image);
     }
 
@@ -117,7 +117,7 @@ var poop = function () {
     value: function close() {
       this.clear();
       var image = document.createElement('img');
-      image.src = '/closed.jpg';
+      image.src = '/assets/images/closed.jpg';
       this.status.appendChild(image);
     }
 

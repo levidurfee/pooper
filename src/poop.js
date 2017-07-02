@@ -73,7 +73,7 @@ class poop {
   open() {
     this.clear();
     let image = document.createElement('img');
-    image.src = '/open.gif';
+    image.src = '/assets/images/open.gif';
     this.status.appendChild(image);
   }
 
@@ -83,7 +83,7 @@ class poop {
   close() {
     this.clear();
     let image = document.createElement('img');
-    image.src = '/closed.jpg';
+    image.src = '/assets/images/closed.jpg';
     this.status.appendChild(image);
   }
 

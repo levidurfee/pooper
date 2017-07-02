@@ -13,7 +13,7 @@ gulp.task('transpile', function() {
       min: '.min.js'
     }
   }))
-  .pipe(gulp.dest('./public'));
+    .pipe(gulp.dest('./public/assets/js'));
 });
 
 gulp.task('watch', function() {
