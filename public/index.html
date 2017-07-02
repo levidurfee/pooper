@@ -18,7 +18,7 @@
     </div>
     <div class='container pooop'>
       <div class='row'>
-        <div class='twelve columns main'>
+        <div class='twelve columns main' id='main'>
           <div id='status'></div>
           <div id='login__form'>
             <input type='email' id='email' placeholder='email'>
@@ -35,6 +35,7 @@
         </div><!-- /columns -->
       </div><!-- /row -->
     </div><!-- /container -->
+    <div id='loading'><img src='/assets/images/loading.gif' alt='loading'><br>loading...</div>
     <script src='/__/firebase/3.9.0/firebase-app.js'></script>
     <script src='/__/firebase/3.9.0/firebase-auth.js'></script>
     <script src='/__/firebase/3.9.0/firebase-database.js'></script>
@@ -43,6 +44,12 @@
     <script src='/assets/js/poop.min.js'></script>
     <script>
       var pooop = poop.run();
+      setTimeout(function() {
+        var loading = document.getElementById('loading');
+        loading.style.display = 'none';
+        var main = document.getElementById('main');
+        main.style.display = 'block';
+      }, 1200);
     </script>
   </body>
 </html>

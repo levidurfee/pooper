@@ -1,0 +1,28 @@
+[debug] [2017-07-02T01:15:18.469Z] ----------------------------------------------------------------------
+[debug] [2017-07-02T01:15:18.472Z] Command:      /usr/local/Cellar/node/7.3.0/bin/node /usr/local/bin/firebase serve
+[debug] [2017-07-02T01:15:18.472Z] CLI Version:  3.9.1
+[debug] [2017-07-02T01:15:18.472Z] Platform:     darwin
+[debug] [2017-07-02T01:15:18.472Z] Node Version: v7.3.0
+[debug] [2017-07-02T01:15:18.473Z] Time:         Sat Jul 01 2017 21:15:18 GMT-0400 (EDT)
+[debug] [2017-07-02T01:15:18.473Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-07-02T01:15:18.490Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-07-02T01:15:18.490Z] > authorizing via signed-in user
+[debug] [2017-07-02T01:15:18.492Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/poop-80edd  
+ Sat Jul 01 2017 21:15:18 GMT-0400 (EDT)
+[debug] [2017-07-02T01:15:19.422Z] <<< HTTP RESPONSE 200
+[debug] [2017-07-02T01:15:19.424Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/poop-80edd/tokens  
+ Sat Jul 01 2017 21:15:19 GMT-0400 (EDT)
+[debug] [2017-07-02T01:15:19.849Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/levidurfee/Projects/poop'...
+[info] 
+[debug] [2017-07-02T01:15:19.853Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/poop-80edd  
+ Sat Jul 01 2017 21:15:19 GMT-0400 (EDT)
+[debug] [2017-07-02T01:15:20.628Z] <<< HTTP RESPONSE 200
+[debug] [2017-07-02T01:15:20.628Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/271372141335/clients/_:getWebAppConfig  
+ Sat Jul 01 2017 21:15:20 GMT-0400 (EDT)
+[debug] [2017-07-02T01:15:21.449Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+
