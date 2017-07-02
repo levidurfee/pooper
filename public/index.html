@@ -35,7 +35,6 @@
         </div><!-- /columns -->
       </div><!-- /row -->
     </div><!-- /container -->
-    <div id='loading'><img src='/assets/images/loading.gif' alt='loading'><br>loading...</div>
     <script src='/__/firebase/3.9.0/firebase-app.js'></script>
     <script src='/__/firebase/3.9.0/firebase-auth.js'></script>
     <script src='/__/firebase/3.9.0/firebase-database.js'></script>
@@ -45,11 +44,9 @@
     <script>
       var pooop = poop.run();
       setTimeout(function() {
-        var loading = document.getElementById('loading');
-        loading.style.display = 'none';
         var main = document.getElementById('main');
-        main.style.display = 'block';
-      }, 1200);
+        main.className += ' show';
+      }, 700);
     </script>
   </body>
 </html>
