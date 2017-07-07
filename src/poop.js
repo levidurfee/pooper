@@ -52,8 +52,13 @@ class poop {
       poop.innerHTML = s.val().pooper;    // update latest pooper
 
       if(s.val().available === false) {
-        // if toilet isn't available
-        wipe.disabled = false;          // enable wipe button
+        // if toilet isn't availabl
+        // TODO: only enable wipe button for current pooper
+        if(firebase.auth().currentUser.email === 
+          document.getElementById('pooper').innerHTML) {
+          wipe.disabled = false;
+        }
+        //wipe.disabled = false;          // enable wipe button
         shit.disabled = true;           // disable poop button
         this.close();                   // change image
       } else {
