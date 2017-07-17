@@ -59,11 +59,12 @@ var poop = function () {
     value: function listen() {
       var shitElId = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'shit';
       var wipeElId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'wipe';
+      var textElId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'text';
 
       var _this = this;
 
-      var textElId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'text';
       var pooperElId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'pooper';
+      var timeElId = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'time';
 
       // get a reference to the database location.
       var toilet = firebase.database().ref('shitter/');
@@ -73,11 +74,13 @@ var poop = function () {
       var wipe = document.getElementById(wipeElId);
       var text = document.getElementById(textElId);
       var poop = document.getElementById(pooperElId);
+      var time = document.getElementById(timeElId);
 
       // wait and listen to see if there is a new value added
       toilet.on('value', function (s) {
         text.innerHTML = s.val().text; // update status text
         poop.innerHTML = s.val().pooper; // update latest pooper
+        time.innerHTML = _this.time(s.val().timestamp);
 
         if (s.val().available === false) {
           // if toilet isn't availabl
@@ -137,6 +140,18 @@ var poop = function () {
       this.status = status;
     }
   }, {
+    key: 'time',
+    value: function time(timestamp) {
+      var d = new Date(timestamp);
+      var hours = void 0;
+      if (d.getHours() > 12) {
+        hours = d.getHours() - 12;
+      } else {
+        hours = d.getHours();
+      }
+      return d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate() + ' ' + hours + ':' + d.getHours() + ':' + d.getSeconds();
+    }
+  }, {
     key: 'main',
     value: function main(loginFormElId, gottaPoopElId, shitElId) {
       firebase.auth().onAuthStateChanged(function (user) {
@@ -161,7 +176,8 @@ var poop = function () {
               firebase.database().ref('shitter/').set({
                 'available': false,
                 'pooper': user.email,
-                'text': 'current pooper'
+                'timestamp': Date.now(),
+                'text': 'current pooper:'
               });
             });
           };
@@ -177,7 +193,8 @@ var poop = function () {
               firebase.database().ref('shitter/').set({
                 'available': true,
                 'pooper': user.email,
-                'text': 'previous pooooper'
+                'timestamp': Date.now(),
+                'text': 'previous pooooper:'
               });
             });
           };

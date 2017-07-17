@@ -36,7 +36,12 @@ class poop {
    * @param {string} textElId     ID of span for status text
    * @param {string} pooperElId   ID of span for person pooper
    */
-  listen(shitElId = 'shit', wipeElId = 'wipe', textElId = 'text', pooperElId = 'pooper') {
+  listen(
+    shitElId = 'shit', 
+    wipeElId = 'wipe', 
+    textElId = 'text', 
+    pooperElId = 'pooper',
+    timeElId = 'time') {
     // get a reference to the database location.
     let toilet = firebase.database().ref('shitter/');
 
@@ -45,11 +50,13 @@ class poop {
     let wipe = document.getElementById(wipeElId);
     let text = document.getElementById(textElId);
     let poop = document.getElementById(pooperElId);
+    let time = document.getElementById(timeElId);
 
     // wait and listen to see if there is a new value added
     toilet.on('value', (s) => {
       text.innerHTML = s.val().text;      // update status text
       poop.innerHTML = s.val().pooper;    // update latest pooper
+      time.innerHTML = this.time(s.val().timestamp);
 
       if(s.val().available === false) {
         // if toilet isn't availabl
@@ -101,6 +108,18 @@ class poop {
     this.status = status;
   }
 
+  time(timestamp) {
+    let d = new Date(timestamp);
+    let hours;
+    if(d.getHours() > 12) {
+      hours = d.getHours() - 12;
+    } else {
+      hours = d.getHours();
+    }
+    return d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate() + ' ' +
+            hours + ':' + d.getHours() + ':' + d.getSeconds();
+  }
+
   main(loginFormElId, gottaPoopElId, shitElId) {
     firebase.auth().onAuthStateChanged(function(user) {
       // if user logs in
@@ -124,7 +143,8 @@ class poop {
             firebase.database().ref('shitter/').set({
               'available': false,
               'pooper': user.email,
-              'text': 'current pooper'
+              'timestamp': Date.now(),
+              'text': 'current pooper:'
             });
           });
 
@@ -141,7 +161,8 @@ class poop {
             firebase.database().ref('shitter/').set({
               'available': true,
               'pooper': user.email,
-              'text': 'previous pooooper'
+              'timestamp': Date.now(),
+              'text': 'previous pooooper:'
             });
           });
 
