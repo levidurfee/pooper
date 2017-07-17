@@ -116,7 +116,8 @@ class poop {
     } else {
       hours = d.getHours();
     }
-    return d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate() + ' ' +
+    return d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' 
+            + d.getDate() + ' ' +
             hours + ':' + d.getHours() + ':' + d.getSeconds();
   }
 
