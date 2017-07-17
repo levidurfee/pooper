@@ -83,8 +83,7 @@ var poop = function () {
         time.innerHTML = _this.time(s.val().timestamp);
 
         if (s.val().available === false) {
-          // if toilet isn't availabl
-          // TODO: only enable wipe button for current pooper
+          // if toilet isn't available
           if (firebase.auth().currentUser.email === document.getElementById('pooper').innerHTML) {
             wipe.disabled = false;
           }
@@ -144,12 +143,17 @@ var poop = function () {
     value: function time(timestamp) {
       var d = new Date(timestamp);
       var hours = void 0;
+      var to_return = void 0;
+
       if (d.getHours() > 12) {
         hours = d.getHours() - 12;
       } else {
         hours = d.getHours();
       }
-      return d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + d.getHours() + ':' + d.getSeconds();
+
+      to_return = d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + d.getMinutes() + ':' + d.getSeconds();
+
+      return to_return;
     }
   }, {
     key: 'main',

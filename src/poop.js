@@ -59,8 +59,7 @@ class poop {
       time.innerHTML = this.time(s.val().timestamp);
 
       if(s.val().available === false) {
-        // if toilet isn't availabl
-        // TODO: only enable wipe button for current pooper
+        // if toilet isn't available
         if(firebase.auth().currentUser.email === 
           document.getElementById('pooper').innerHTML) {
           wipe.disabled = false;
@@ -111,14 +110,22 @@ class poop {
   time(timestamp) {
     let d = new Date(timestamp);
     let hours;
+    let to_return;
+
     if(d.getHours() > 12) {
       hours = d.getHours() - 12;
     } else {
       hours = d.getHours();
     }
-    return d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' 
-            + d.getDate() + ' ' +
-            hours + ':' + d.getHours() + ':' + d.getSeconds();
+
+    to_return = d.getFullYear() + '/' 
+            + (parseInt(d.getMonth(), 10) + 1).toString() + '/' 
+            + d.getDate() + ' ' 
+            + hours + ':' 
+            + d.getMinutes() + ':' 
+            + d.getSeconds();
+
+    return to_return;
   }
 
   main(loginFormElId, gottaPoopElId, shitElId) {
