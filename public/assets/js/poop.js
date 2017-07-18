@@ -100,6 +100,18 @@ var poop = function () {
 
       return this;
     }
+  }, {
+    key: 'prrt',
+    value: function prrt() {
+      var prtEl = document.getElementById('prrt');
+      prtEl.play();
+    }
+  }, {
+    key: 'flush',
+    value: function flush() {
+      var flushEl = document.getElementById('flush');
+      flushEl.play();
+    }
 
     /**
      * show the opened image
@@ -112,6 +124,7 @@ var poop = function () {
       var image = document.createElement('img');
       image.src = '/assets/images/open.gif';
       this.status.appendChild(image);
+      this.prrt();
     }
 
     /**
@@ -125,6 +138,7 @@ var poop = function () {
       var image = document.createElement('img');
       image.src = '/assets/images/closed.jpg';
       this.status.appendChild(image);
+      this.flush();
     }
 
     /**
