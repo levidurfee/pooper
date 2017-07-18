@@ -96,7 +96,7 @@ class poop {
     let image = document.createElement('img');
     image.src = '/assets/images/open.gif';
     this.status.appendChild(image);
-    this.prrt();
+    this.flush();
   }
 
   /**
@@ -107,7 +107,7 @@ class poop {
     let image = document.createElement('img');
     image.src = '/assets/images/closed.jpg';
     this.status.appendChild(image);
-    this.flush();
+    this.prrt();
   }
 
   /**
