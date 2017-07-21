@@ -3,6 +3,7 @@ const babel = require('gulp-babel');
 const eslint = require('gulp-eslint');
 const minify = require('gulp-minify');
 const sass = require('gulp-sass');
+const cleanCSS = require('gulp-clean-css');
 
 gulp.task('transpile', function() {
   return gulp.src([
@@ -33,6 +34,7 @@ gulp.task('transpile:message', function() {
 gulp.task('sass', function () {
   return gulp.src('./src/styles.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('./public/assets/css'));
 });
 
