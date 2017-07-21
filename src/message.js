@@ -30,7 +30,7 @@ class message {
   listen() {
     let div, message;
 
-    let board = firebase.database().ref('board/');
+    let board = firebase.database().ref('board/').limitToLast(50);
     board.on('child_added', (s) => {      
       message = document.createTextNode(
         s.val().email + ' [' + this.time(s.val().timestamp) + ']: ' +

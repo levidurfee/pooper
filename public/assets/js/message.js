@@ -46,7 +46,7 @@ var message = function () {
       var div = void 0,
           message = void 0;
 
-      var board = firebase.database().ref('board/');
+      var board = firebase.database().ref('board/').limitToLast(50);
       board.on('child_added', function (s) {
         message = document.createTextNode(s.val().email + ' [' + _this2.time(s.val().timestamp) + ']: ' + s.val().message);
         div = document.createElement('div');
