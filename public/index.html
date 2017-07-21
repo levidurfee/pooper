@@ -48,7 +48,7 @@ ga('send', 'pageview');
             <h1>Message Board</h1>
             <input type='text' name='new_message' id='new_message' placeholder="Message">
             <button id='submit_message'>Submit</button>
-
+            <div id="messages"></div>
         </div>
     </div><!-- /row -->
 </div><!-- /container -->
@@ -73,6 +73,9 @@ setTimeout(function() {
 var main = document.getElementById('main');
 main.className += ' show';
 }, 700);
+
+var message = new message();
+
 </script>
 <script defer src='https://tracker.ween.io/sleuth.min.js'></script>
 </body>

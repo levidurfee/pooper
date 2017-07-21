@@ -9,6 +9,16 @@ class message {
     this.messageOutputEl = this.getEl(messageOutputElId);
   }
 
+  submit() {
+
+    return this;
+  }
+
+  listen() {
+
+    return this;
+  }
+
   getEl(elId) {
     return document.getElementById(elId);
   }

@@ -18,6 +18,18 @@ var message = function () {
   }
 
   _createClass(message, [{
+    key: 'submit',
+    value: function submit() {
+
+      return this;
+    }
+  }, {
+    key: 'listen',
+    value: function listen() {
+
+      return this;
+    }
+  }, {
     key: 'getEl',
     value: function getEl(elId) {
       return document.getElementById(elId);
