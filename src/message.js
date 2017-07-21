@@ -1,5 +1,15 @@
 class message {
-	constructor() {
-    
+	constructor(
+    messageInputElId = 'new_message', 
+    messageSubmitElId = 'submit_message',
+    messageOutputElId = 'messages'
+    ) {
+    this.messageInputEl = this.getEl(messageInputElId);
+    this.messageSubmitEl = this.getEl(messageSubmitElId);
+    this.messageOutputEl = this.getEl(messageOutputElId);
+  }
+
+  getEl(elId) {
+    return document.getElementById(elId);
   }
 }
