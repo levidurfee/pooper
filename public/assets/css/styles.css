@@ -48,9 +48,8 @@ img {max-width:100%;height:236px;}
 }
 
 #messages div {
-  width:100%;
   border:1px solid pink;
-  padding:10;
+  padding:10px;
   margin-bottom:5px;
 }
 
