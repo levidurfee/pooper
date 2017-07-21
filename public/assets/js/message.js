@@ -66,10 +66,14 @@ var message = function () {
 
       if (d.getHours() > 12) {
         hours = d.getHours() - 12;
-        ampm = 'am';
       } else {
         hours = d.getHours();
+      }
+
+      if (d.getHours() >= 12) {
         ampm = 'pm';
+      } else {
+        ampm = 'am';
       }
 
       to_return = hours + ':' + d.getMinutes() + ampm;
