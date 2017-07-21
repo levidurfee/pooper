@@ -18,16 +18,63 @@ var message = function () {
   }
 
   _createClass(message, [{
-    key: 'submit',
-    value: function submit() {
+    key: 'submitHandler',
+    value: function submitHandler() {
+      var _this = this;
+
+      this.messageSubmitEl.onclick = function () {
+        var value = _this.messageInputEl.value;
+        var db = firebase.database();
+        var email = firebase.auth().currentUser.email;
+
+        db.ref('board/').push({
+          'message': value,
+          'timestamp': Date.now(),
+          'email': email
+        });
+
+        _this.messageInputEl.value = '';
+      };
 
       return this;
     }
   }, {
     key: 'listen',
     value: function listen() {
+      var _this2 = this;
+
+      var div = void 0,
+          message = void 0;
+
+      var board = firebase.database().ref('board/');
+      board.on('child_added', function (s) {
+        message = document.createTextNode(s.val().email + ' [' + _this2.time(s.val().timestamp) + ']: ' + s.val().message);
+        div = document.createElement('div');
+        div.appendChild(message);
+        _this2.messageOutputEl.appendChild(div);
+      });
 
       return this;
+    }
+  }, {
+    key: 'time',
+    value: function time(timestamp) {
+      var d = new Date(timestamp);
+      var hours = void 0;
+      var to_return = void 0;
+      var ampm = void 0;
+
+      if (d.getHours() > 12) {
+        hours = d.getHours() - 12;
+        ampm = 'am';
+      } else {
+        hours = d.getHours();
+        ampm = 'pm';
+      }
+
+      to_return = hours + ':' + d.getMinutes() + ampm;
+
+      return to_return;
     }
   }, {
     key: 'getEl',

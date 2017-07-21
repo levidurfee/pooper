@@ -9,14 +9,60 @@ class message {
     this.messageOutputEl = this.getEl(messageOutputElId);
   }
 
-  submit() {
+  submitHandler() {
+    this.messageSubmitEl.onclick = () => {
+      let value = this.messageInputEl.value;
+      let db = firebase.database();
+      let email = firebase.auth().currentUser.email;
+
+      db.ref('board/').push({
+        'message': value,
+        'timestamp': Date.now(),
+        'email': email
+      });
+
+      this.messageInputEl.value = '';
+    };
 
     return this;
   }
 
   listen() {
+    let div, message;
+
+    let board = firebase.database().ref('board/');
+    board.on('child_added', (s) => {      
+      message = document.createTextNode(
+        s.val().email + ' [' + this.time(s.val().timestamp) + ']: ' +
+        s.val().message
+      );
+      div = document.createElement('div');
+      div.appendChild(message);
+      this.messageOutputEl.appendChild(div);
+    });
 
     return this;
+  }
+
+  time(timestamp) {
+    let d = new Date(timestamp);
+    let hours;
+    let to_return;
+    let ampm;
+
+    if(d.getHours() > 12) {
+      hours = d.getHours() - 12;
+      ampm = 'am';
+    } else {
+      hours = d.getHours();
+      ampm = 'pm';
+    }
+
+    to_return =  
+            hours + ':' 
+            + d.getMinutes() + ampm;
+
+    return to_return;
   }
 
   getEl(elId) {
