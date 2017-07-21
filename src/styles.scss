@@ -66,6 +66,8 @@ button:disabled {
 .messages {
   margin-top:20px;
   padding:10px;
+  max-height: 300px;
+  overflow: scroll;
 }
 
 .messages h1 {
