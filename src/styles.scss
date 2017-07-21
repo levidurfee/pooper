@@ -14,7 +14,7 @@ $button_purple: #7c42bd;
 .head,.main,.messages {
   box-shadow: 2px 2px 6px #424242;
 }
-.head .row {
+.head .row, .footer .row {
   width:80%; 
   margin:0 auto;
   font-size:20px;
@@ -87,6 +87,14 @@ button:disabled {
   border:1px solid pink;
   padding:10px;
   margin-bottom:5px;
+}
+
+.footer {
+  margin-top:50px;
+  color:#fff;
+  background: $purple;
+  width: 100%;
+  max-width: 100%;
 }
 
 #prrt, #flush {display: none;}
