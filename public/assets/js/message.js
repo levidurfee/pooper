@@ -23,20 +23,35 @@ var message = function () {
       var _this = this;
 
       this.messageSubmitEl.onclick = function () {
-        var value = _this.messageInputEl.value;
-        var db = firebase.database();
-        var email = firebase.auth().currentUser.email;
+        _this.send();
+      };
 
-        db.ref('board/').push({
-          'message': value,
-          'timestamp': Date.now(),
-          'email': email
-        });
-
-        _this.messageInputEl.value = '';
+      this.messageInputEl.onkeyup = function (e) {
+        if (e.keyCode === 13) {
+          _this.send();
+        }
       };
 
       return this;
+    }
+  }, {
+    key: 'send',
+    value: function send() {
+      var value = this.messageInputEl.value;
+      var db = firebase.database();
+      var email = firebase.auth().currentUser.email;
+
+      if (value.length === 0) {
+        return;
+      }
+
+      db.ref('board/').push({
+        'message': value,
+        'timestamp': Date.now(),
+        'email': email
+      });
+
+      this.messageInputEl.value = '';
     }
   }, {
     key: 'listen',

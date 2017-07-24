@@ -11,20 +11,34 @@ class message {
 
   submitHandler() {
     this.messageSubmitEl.onclick = () => {
-      let value = this.messageInputEl.value;
-      let db = firebase.database();
-      let email = firebase.auth().currentUser.email;
+      this.send();
+    };
 
-      db.ref('board/').push({
-        'message': value,
-        'timestamp': Date.now(),
-        'email': email
-      });
-
-      this.messageInputEl.value = '';
+    this.messageInputEl.onkeyup = (e) => {
+      if(e.keyCode === 13) {
+        this.send();
+      }
     };
 
     return this;
+  }
+
+  send() {
+    let value = this.messageInputEl.value;
+    let db = firebase.database();
+    let email = firebase.auth().currentUser.email;
+
+    if(value.length === 0) {
+      return;
+    }
+
+    db.ref('board/').push({
+      'message': value,
+      'timestamp': Date.now(),
+      'email': email
+    });
+
+    this.messageInputEl.value = '';
   }
 
   listen() {
