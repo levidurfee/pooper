@@ -45,7 +45,7 @@ class message {
     let div, message;
 
     let board = firebase.database().ref('board/').limitToLast(50);
-    board.on('child_added', (s) => {      
+    board.on('child_added', (s) => {
       message = document.createTextNode(
         s.val().email + ' [' + this.time(s.val().timestamp) + ']: ' +
         s.val().message
@@ -53,6 +53,7 @@ class message {
       div = document.createElement('div');
       div.appendChild(message);
       this.messageOutputEl.appendChild(div);
+      this.beep();
     });
 
     return this;
@@ -81,6 +82,11 @@ class message {
             + d.getMinutes() + ampm;
 
     return to_return;
+  }
+
+  beep() {
+    let beepEl = this.getEl('beep');
+    beepEl.play();
   }
 
   getEl(elId) {
