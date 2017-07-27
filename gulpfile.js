@@ -7,7 +7,7 @@ const cleanCSS = require('gulp-clean-css');
 
 gulp.task('transpile', function() {
   return gulp.src([
-    './src/poop.js'
+    './src/js/poop.js'
   ])
   .pipe(babel({ presets: ['es2015'] }))
   .pipe(minify({
@@ -20,7 +20,7 @@ gulp.task('transpile', function() {
 
 gulp.task('transpile:message', function() {
   return gulp.src([
-    './src/message.js'
+    './src/js/message.js'
     ])
   .pipe(babel({presets: ['es2015']}))
   .pipe(minify({
@@ -32,14 +32,14 @@ gulp.task('transpile:message', function() {
 });
 
 gulp.task('sass', function () {
-  return gulp.src('./src/styles.scss')
+  return gulp.src('./src/scss/styles.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('./public/assets/css'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./src/poop.js'], ['transpile']);
-  gulp.watch(['./src/message.js'], ['transpile:message']);
-  gulp.watch(['./src/styles.scss'], ['sass']);
+  gulp.watch(['./src/js/poop.js'], ['transpile']);
+  gulp.watch(['./src/js/message.js'], ['transpile:message']);
+  gulp.watch(['./src/scss/styles.scss'], ['sass']);
 });

@@ -67,6 +67,7 @@ var message = function () {
         div = document.createElement('div');
         div.appendChild(message);
         _this2.messageOutputEl.appendChild(div);
+        _this2.beep();
       });
 
       return this;
@@ -94,6 +95,12 @@ var message = function () {
       to_return = hours + ':' + d.getMinutes() + ampm;
 
       return to_return;
+    }
+  }, {
+    key: 'beep',
+    value: function beep() {
+      var beepEl = this.getEl('beep');
+      beepEl.play();
     }
   }, {
     key: 'getEl',
