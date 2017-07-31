@@ -121,7 +121,7 @@ class poop {
 
   time(timestamp) {
     let d = new Date(timestamp);
-    let hours;
+    let hours, minutes;
     let to_return;
 
     if(d.getHours() > 12) {
@@ -130,16 +130,22 @@ class poop {
       hours = d.getHours();
     }
 
+    if(d.getMinutes() < 10) {
+      minutes = "0" + d.getMinutes();
+    } else {
+      minutes = d.getMinutes();
+    }
+
     to_return = d.getFullYear() + '/' 
             + (parseInt(d.getMonth(), 10) + 1).toString() + '/' 
             + d.getDate() + ' ' 
             + hours + ':' 
-            + (date.getMinutes()<10?'0':'') + date.getMinutes() + ':' 
+            + minutes + ':' 
             + d.getSeconds();
 
     return to_return;
   }
-  
+
   main(loginFormElId, gottaPoopElId, shitElId) {
     firebase.auth().onAuthStateChanged(function(user) {
       // if user logs in

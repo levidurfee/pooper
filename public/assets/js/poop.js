@@ -156,7 +156,8 @@ var poop = function () {
     key: 'time',
     value: function time(timestamp) {
       var d = new Date(timestamp);
-      var hours = void 0;
+      var hours = void 0,
+          minutes = void 0;
       var to_return = void 0;
 
       if (d.getHours() > 12) {
@@ -165,7 +166,13 @@ var poop = function () {
         hours = d.getHours();
       }
 
-      to_return = d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ':' + d.getSeconds();
+      if (d.getMinutes() < 10) {
+        minutes = "0" + d.getMinutes();
+      } else {
+        minutes = d.getMinutes();
+      }
+
+      to_return = d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + minutes + ':' + d.getSeconds();
 
       return to_return;
     }
