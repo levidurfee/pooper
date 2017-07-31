@@ -165,7 +165,7 @@ var poop = function () {
         hours = d.getHours();
       }
 
-      to_return = d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + d.getMinutes() + ':' + d.getSeconds();
+      to_return = d.getFullYear() + '/' + (parseInt(d.getMonth(), 10) + 1).toString() + '/' + d.getDate() + ' ' + hours + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes() + ':' + d.getSeconds();
 
       return to_return;
     }

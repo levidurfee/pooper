@@ -134,12 +134,12 @@ class poop {
             + (parseInt(d.getMonth(), 10) + 1).toString() + '/' 
             + d.getDate() + ' ' 
             + hours + ':' 
-            + d.getMinutes() + ':' 
+            + (date.getMinutes()<10?'0':'') + date.getMinutes() + ':' 
             + d.getSeconds();
 
     return to_return;
   }
-
+  
   main(loginFormElId, gottaPoopElId, shitElId) {
     firebase.auth().onAuthStateChanged(function(user) {
       // if user logs in
